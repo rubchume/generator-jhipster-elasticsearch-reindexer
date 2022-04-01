@@ -57,6 +57,7 @@ var functions = {
       }
 
       this.jhipsterVersion = config.jhipsterVersion;
+      this.log('Puta ' + config.jhipsterVersion);
 
       this.angularVersion = '1.0.0';
 

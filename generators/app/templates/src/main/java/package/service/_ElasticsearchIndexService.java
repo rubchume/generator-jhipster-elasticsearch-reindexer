@@ -73,7 +73,7 @@ public class ElasticsearchIndexService {
     <%_ if (useJest) { _%>
     private final JestElasticsearchTemplate elasticsearchTemplate;
     <%_ } else { _%>
-    private final ElasticsearchTemplate elasticsearchTemplate;
+    private final ElasticsearchRestTemplate elasticsearchTemplate;
     <%_ } _%>
 
     public ElasticsearchIndexService(
@@ -93,7 +93,7 @@ public class ElasticsearchIndexService {
         <%_ if (useJest) { _%>
         JestElasticsearchTemplate elasticsearchTemplate) {
         <%_ } else { _%>
-        ElasticsearchTemplate elasticsearchTemplate) {
+        ElasticsearchRestTemplate elasticsearchTemplate) {
         <%_ } _%>
         <%_ if (!skipUserManagement && (applicationType === 'monolith' || applicationType === 'gateway')) { _%>
         this.userRepository = userRepository;
@@ -171,9 +171,9 @@ public class ElasticsearchIndexService {
     @SuppressWarnings("unchecked")
     private <T, ID extends Serializable> void reindexForClass(Class<T> entityClass, JpaRepository<T, ID> jpaRepository,
                                                               ElasticsearchRepository<T, ID> elasticsearchRepository) {
-        elasticsearchTemplate.deleteIndex(entityClass);
+        elasticsearchTemplate.indexOps(entityClass).delete();
         try {
-            elasticsearchTemplate.createIndex(entityClass);
+            elasticsearchTemplate.indexOps(entityClass).create();
         <%_ if (useResourceException) { _%>
         } catch (ResourceAlreadyExistsException e) {
         <%_ } else { _%>
@@ -181,7 +181,7 @@ public class ElasticsearchIndexService {
         <%_ } _%>
             // Do nothing. Index was already concurrently recreated by some other service.
         }
-        elasticsearchTemplate.putMapping(entityClass);
+        elasticsearchTemplate.indexOps(entityClass).putMapping();
         if (jpaRepository.count() > 0) {
             // if a JHipster entity field is the owner side of a many-to-many relationship, it should be loaded manually
             List<Method> relationshipGetters = Arrays.stream(entityClass.getDeclaredFields())
