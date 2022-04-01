@@ -4,6 +4,19 @@ package <%=packageName%>.service;
 import com.codahale.metrics.annotation.Timed;
 <%_ } _%>
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
+import javax.persistence.ManyToMany;
+
 import <%=packageName%>.domain.*;
 import <%=packageName%>.repository.*;
 import <%=packageName%>.repository.search.*;
@@ -21,29 +34,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 <%_ if (!useJest) { _%>
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 <%_ } _%>
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 <%_ if (jhipsterMajorVersion < 4) { _%>
 import javax.inject.Inject;
 <%_ } _%>
-import javax.persistence.ManyToMany;
-import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -137,7 +137,7 @@ public class ElasticsearchIndexService {
       private JestElasticsearchTemplate elasticsearchTemplate;
     <%_ } else { _%>
       @Inject
-      private ElasticsearchTemplate elasticsearchTemplate;
+      private ElasticsearchRestTemplate elasticsearchTemplate;
     <%_ } _%>
 <%_ } _%>
 

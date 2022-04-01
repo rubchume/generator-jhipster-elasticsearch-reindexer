@@ -7,7 +7,7 @@ import <%=packageName%>.security.AuthoritiesConstants;
 import <%=packageName%>.security.SecurityUtils;
 import <%=packageName%>.service.ElasticsearchIndexService;
 <%_ if (useHeaderUtilFromLibrary) { _%>
-import io.github.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.HeaderUtil;
 <%_ } else { _%>
 import <%=packageName%>.web.rest.util.HeaderUtil;
 <%_ } _%>
@@ -79,7 +79,7 @@ public class ElasticsearchIndexResource {
         elasticsearchIndexService.reindexAll();
         return ResponseEntity.accepted()
             <%_ if (useHeaderUtilFromLibrary) { _%>
-            .headers(HeaderUtil.createAlert(applicationName, "elasticsearch.reindex.accepted", null))
+            .headers(HeaderUtil.createAlert(applicationName, "elasticsearch.reindex.accepted", ""))
             <%_ } else { _%>
             .headers(HeaderUtil.createAlert("elasticsearch.reindex.accepted", null))
             <%_ } _%>

@@ -57,7 +57,6 @@ var functions = {
       }
 
       this.jhipsterVersion = config.jhipsterVersion;
-      this.log('Puta ' + config.jhipsterVersion);
 
       this.angularVersion = '1.0.0';
 
@@ -79,7 +78,7 @@ var functions = {
       this.useCommonHttpApi = semver.gte(this.angularVersion, '5.0.0');
       this.requiresSetLocation = this.jhipsterVersion ? semver.lt(this.jhipsterVersion, '4.4.4') : false;
       this.usePostMapping = this.jhipsterVersion ? semver.gte(this.jhipsterVersion, '3.10.0') : false;
-      this.useJest = this.jhipsterVersion ? semver.gte(this.jhipsterVersion, '5.3.0') : false;
+      this.useJest = false;
       this.useTimedAnnotation = this.jhipsterVersion ? semver.lt(this.jhipsterVersion, '5.8.0') : false;
       this.useHeaderUtilFromLibrary = this.jhipsterVersion ? semver.gte(this.jhipsterVersion, '6.0.0') : false;
       this.useSaveAll = this.jhipsterVersion ? semver.gte(this.jhipsterVersion, '5.0.0') : false;
