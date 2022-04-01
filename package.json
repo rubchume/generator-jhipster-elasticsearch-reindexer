@@ -1,5 +1,5 @@
 {
-  "name": "generator-jhipster-elasticsearch-reindexer",
+  "name": "generator-tuputamadre",
   "version": "1.2.1",
   "description": "Generates a service that reindexes all database rows for each of your entities",
   "keywords": [
@@ -27,7 +27,7 @@
     "mkdirp": "0.5.1",
     "semver": "5.4.1",
     "shelljs": "0.5.3",
-    "yeoman-generator": ">=0.22.2"
+    "yeoman-generator": "1.1.1"
   },
   "devDependencies": {
     "yeoman-test": "^1.6.0",
